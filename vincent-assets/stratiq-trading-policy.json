@@ -1,0 +1,119 @@
+{
+    "version": "1.0",
+    "name": "StratIQ AI Trading Platform Policy",
+    "description": "Comprehensive trading permissions and risk management for StratIQ autonomous trading agents",
+    "policyType": "trading_automation",
+    "permissions": [{
+            "id": "basic_trading",
+            "name": "Basic Trading Operations",
+            "description": "Execute buy, sell, and swap operations with predefined limits",
+            "type": "trading",
+            "enabled": true,
+            "limits": {
+                "maxTradeAmount": 1000,
+                "maxDailyAmount": 5000,
+                "maxWeeklyAmount": 20000,
+                "allowedAssets": ["BTC", "ETH", "USDC", "USDT", "BNB"],
+                "allowedActions": ["buy", "sell", "swap", "limit_order"],
+                "maxSlippage": 0.02,
+                "requireConfirmation": false
+            }
+        },
+        {
+            "id": "strategy_management",
+            "name": "AI Strategy Deployment",
+            "description": "Deploy and manage automated trading strategies",
+            "type": "automation",
+            "enabled": true,
+            "limits": {
+                "maxActiveStrategies": 5,
+                "maxRiskLevel": "medium",
+                "allowedStrategies": ["dca", "grid", "momentum", "arbitrage"],
+                "requireApproval": true
+            }
+        },
+        {
+            "id": "portfolio_access",
+            "name": "Portfolio Management",
+            "description": "View and manage portfolio balances and performance",
+            "type": "read_write",
+            "enabled": true,
+            "limits": {
+                "canViewBalances": true,
+                "canViewHistory": true,
+                "canExportData": true,
+                "canModifySettings": true
+            }
+        },
+        {
+            "id": "emergency_controls",
+            "name": "Emergency Stop Authority",
+            "description": "Immediate halt of all trading activities",
+            "type": "safety",
+            "enabled": true,
+            "limits": {
+                "instantStop": true,
+                "pauseStrategies": true,
+                "cancelPendingOrders": true,
+                "requireManualRestart": false
+            }
+        }
+    ],
+    "riskManagement": {
+        "enabled": true,
+        "maxPortfolioRisk": 0.15,
+        "stopLossRequired": true,
+        "takeProfitRecommended": true,
+        "maxLeverage": 2,
+        "diversificationRules": {
+            "maxSingleAssetAllocation": 0.4,
+            "minNumberOfAssets": 3,
+            "maxCorrelatedPositions": 0.6
+        }
+    },
+    "timeConstraints": {
+        "tradingHours": {
+            "enabled": false,
+            "timezone": "UTC",
+            "allowedHours": "24/7",
+            "excludeWeekends": false
+        },
+        "cooldownPeriods": {
+            "betweenTrades": 0,
+            "afterLoss": 300,
+            "afterEmergencyStop": 3600
+        }
+    },
+    "compliance": {
+        "auditLog": {
+            "enabled": true,
+            "logLevel": "detailed",
+            "retentionPeriod": "90 days",
+            "includeReasons": true
+        },
+        "geographicRestrictions": {
+            "enabled": false,
+            "allowedRegions": ["global"],
+            "restrictedRegions": []
+        },
+        "kycRequirements": {
+            "enabled": false,
+            "level": "basic"
+        }
+    },
+    "notifications": {
+        "tradeExecutions": true,
+        "strategyChanges": true,
+        "riskAlerts": true,
+        "emergencyStops": true,
+        "performanceReports": "daily"
+    },
+    "metadata": {
+        "created": "2025-07-04T12:00:00Z",
+        "platform": "StratIQ AI Trading Platform",
+        "version": "1.0.0",
+        "validUntil": "2026-07-04T12:00:00Z",
+        "updatedBy": "StratIQ Development Team",
+        "compatibleWith": ["Vincent", "Lit Protocol", "Ethereum", "Binance Smart Chain"]
+    }
+}

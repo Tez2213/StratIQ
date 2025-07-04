@@ -80,7 +80,7 @@ class VincentLitProtocolService {
                 description: perm.description || `Permission for ${perm.type}`,
                 enabled: true,
                 riskLevel: this.assessRiskLevel(perm),
-                maxAmount: perm.limits ? .maxAmount || null,
+                maxAmount: perm.limits?.maxAmount || null,
                 conditions: perm.policies || [],
                 litProtocolManaged: true,
                 lastModified: new Date().toISOString()
@@ -232,8 +232,8 @@ class VincentLitProtocolService {
             case 'execute_trade':
                 const tradingPerm = permissions.find(p =>
                     p.type === 'trading' ||
-                    p.name ? .toLowerCase().includes('trading') ||
-                    p.name ? .toLowerCase().includes('execute')
+                    p.name?.toLowerCase().includes('trading') ||
+                    p.name?.toLowerCase().includes('execute')
                 );
 
                 if (tradingPerm) {
@@ -242,7 +242,7 @@ class VincentLitProtocolService {
                     validation.riskAssessment = amount > 1000 ? 'High' : amount > 100 ? 'Medium' : 'Low';
 
                     // Check amount limits if specified
-                    if (tradingPerm.limits ? .maxAmount && amount > tradingPerm.limits.maxAmount) {
+                    if (tradingPerm.limits?.maxAmount && amount > tradingPerm.limits.maxAmount) {
                         validation.allowed = false;
                         validation.reason = `Amount exceeds permitted limit (${tradingPerm.limits.maxAmount})`;
                     }
@@ -255,8 +255,8 @@ class VincentLitProtocolService {
             case 'view_portfolio':
                 const viewPerm = permissions.find(p =>
                     p.type === 'read' ||
-                    p.name ? .toLowerCase().includes('portfolio') ||
-                    p.name ? .toLowerCase().includes('view')
+                    p.name?.toLowerCase().includes('portfolio') ||
+                    p.name?.toLowerCase().includes('view')
                 );
 
                 if (viewPerm) {
@@ -272,8 +272,8 @@ class VincentLitProtocolService {
             case 'deploy_strategy':
                 const strategyPerm = permissions.find(p =>
                     p.type === 'strategy' ||
-                    p.name ? .toLowerCase().includes('strategy') ||
-                    p.name ? .toLowerCase().includes('deploy')
+                    p.name?.toLowerCase().includes('strategy') ||
+                    p.name?.toLowerCase().includes('deploy')
                 );
 
                 if (strategyPerm) {
@@ -395,10 +395,10 @@ class VincentLitProtocolService {
 
     // Helper methods
     assessRiskLevel(permission) {
-        if (permission.type === 'emergency' || permission.name ? .includes('stop')) return 'Safety';
-        if (permission.type === 'trading' || permission.name ? .includes('trade')) return 'High';
-        if (permission.type === 'strategy' || permission.name ? .includes('strategy')) return 'Medium';
-        if (permission.type === 'read' || permission.name ? .includes('view')) return 'Low';
+        if (permission.type === 'emergency' || permission.name?.includes('stop')) return 'Safety';
+        if (permission.type === 'trading' || permission.name?.includes('trade')) return 'High';
+        if (permission.type === 'strategy' || permission.name?.includes('strategy')) return 'Medium';
+        if (permission.type === 'read' || permission.name?.includes('view')) return 'Low';
         return 'Medium';
     }
 
